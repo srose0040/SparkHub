@@ -1,15 +1,16 @@
-import logo from '../images/SparkHub_Logo_Black-e1625218533269.png'
+import whiteLogo from '../images/SparkHub_Logo_Black-e1625218533269.png'
 import colorLogo from '../images/OIP.jpg'
 
-const Nav = ({minimal}) => {
+const Nav = ({minimal, authToken}) => {
 
 
 
     return (
-        <nav>
+        <nav className="overlay">
             <div className="logo-container">
-                <img className="logo" src={minimal ? colorLogo : logo}/>
+                <img className="logo" src={minimal ? colorLogo : whiteLogo}/>
             </div>
+            {!authToken && !minimal && <button className="nav-button"> Log In</button>}
         </nav>
     )
 }
