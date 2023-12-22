@@ -4,6 +4,10 @@ html, body {
     padding: 0;
 }
 
+h2 {
+    font-style: italic;
+}
+
 *{
     font-family: 'Readex Pro', sans-serif;
 }
@@ -74,3 +78,50 @@ nav .nav-button
     align-items: center;
     text-align: center;
 }
+
+/*
+.auth-form {
+    color: #e70ad0;
+}
+*/
+.secondaryButton {
+    color: #5b5a5a;
+    background-color: white;
+    font-weight: 500;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: solid 2px rgb(121, 119, 119);
+    margin: 6px;
+}
+
+.secondaryButton:hover {
+    color: rgb(48, 48, 48);
+    border: solid 2px rgb(48, 48, 48);
+}
+
+nav .nav-button:disabled
+{
+    color: #340530;
+    background-color: #d0d0d0;
+    font-size: 20px;
+}
+.auth-modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-modal input[type=password],
+.auth-modal input[type=email]{
+    padding: 8px;
+    margin: 8px;
+    font-size: 17px;
+
+}
+
+/*
+.auth-modal .close-icon {
+    float: right;
+}
+*/
