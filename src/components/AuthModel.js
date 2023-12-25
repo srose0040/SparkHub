@@ -6,6 +6,7 @@ const AuthModel = ({setShowModal}) => {
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
 
+    const isSignUp = true
 
     const handleClick = () =>
     {
@@ -14,9 +15,19 @@ const AuthModel = ({setShowModal}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault() /* prevent page from refreshing */
+        try {
+            if (isSignUp && (password !== confirmPassword))
+            {
+                setError('Passwords need to match!')
+            }
+            console.log('make a post req to database')
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
-    const isSignUp = true
+
 
     return (
         <div className="auth-modal">
