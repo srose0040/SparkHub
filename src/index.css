@@ -141,6 +141,7 @@ nav .nav-button:disabled
     flex-direction: column;
     padding: 20px;
     width: 35%;
+    text-align: start;
 }
 
 .onboarding form input {
@@ -150,6 +151,10 @@ nav .nav-button:disabled
     border: solid 2px rgb(219,219,219);
     border-radius: 10px;
 
+}
+
+.onboarding form label {
+    margin: 10px 0;
 }
 
 
@@ -170,6 +175,23 @@ nav .nav-button:disabled
     margin-right: 10px;
 }
 
-.onboarding form .multiple-input-container input[type="radio"]{
+.onboarding form input[type="radio"]{
     display: none;
 }
+
+.onboarding form input[type="radio"]:checked + label{
+    border: solid 2px rgb(100, 0, 90);
+}
+
+.onboarding form input[type="submit"]:hover{
+    background-color: white;
+}
+
+.onboarding form input[type="submit"]:active{
+    background-color: #590051;
+}
+
+.onboarding form input[type="number"]{
+    width: 10%;
+}
+

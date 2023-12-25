@@ -30,7 +30,7 @@ const Onboarding = () => {
                         />
 
                         <label>Birthday</label>
-                        <div className="multiple-input-continer">
+                        <div className="multiple-input-container">
                             <input id="dob_day"
                                    type="number"
                                    name="dob_day"
