@@ -2,13 +2,35 @@ import {useState} from 'react'
 import Nav from "../components/Nav";
 
 const Onboarding = () => {
+    const [formData, setFormData] = useState({
+        user_id: '',
+        first_name: "",
+        dob_day: "",
+        dob_month: "",
+        dob_year: "",
+        show_gender: false,
+        gender_identity: "man",
+        gender_interest: "woman",
+        email: "",
+        url: "",
+        about: "",
+        matches: []
+    })
 
     const handleSubmit = () => {
         console.log('submitted')
     }
 
-    const handleChange = () => {
-        console.log('changed')
+    const handleChange = (e) => {
+        console.log('e', e)
+        const value = e.target.value
+        const name = e.target.name
+        /* getting previous state */
+
+        setFormData((prevState) => ({
+            ...prevState,
+            [name] : value
+        }))
     }
 
     return (
@@ -25,7 +47,7 @@ const Onboarding = () => {
                                name="first_name"
                                placeholder="First Name"
                                required={true}
-                               value={""}
+                               value={formData.first_name}
                                onChange={handleChange}
                         />
 
@@ -36,7 +58,7 @@ const Onboarding = () => {
                                    name="dob_day"
                                    placeholder="DD"
                                    required={true}
-                                   value={""}
+                                   value={formData.dob_day}
                                    onChange={handleChange}
                             />
                             <input id="dob_month"
@@ -44,7 +66,7 @@ const Onboarding = () => {
                                    name="dob_month"
                                    placeholder="MM"
                                    required={true}
-                                   value={""}
+                                   value={formData.dob_month}
                                    onChange={handleChange}
                             />
                             <input id="dob_year"
@@ -52,7 +74,7 @@ const Onboarding = () => {
                                    name="dob_year"
                                    placeholder="YYYY"
                                    required={true}
-                                   value={""}
+                                   value={formData.dob_year}
                                    onChange={handleChange}
                             />
                         </div>
@@ -134,7 +156,7 @@ const Onboarding = () => {
                                name="about"
                                required={true}
                                placeholder="I like long walks.."
-                               value={""}
+                               value={formData.about}
                                onChange={handleChange}
                         />
                         <input type="submit"/>
@@ -152,7 +174,7 @@ const Onboarding = () => {
                             required={true}
                         />
                         <div className="photo-container">
-
+                            <img src={formData.url} alt="profile pic preview"/>
                         </div>
 
 
