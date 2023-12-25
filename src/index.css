@@ -128,3 +128,48 @@ nav .nav-button:disabled
     float: right;
 }
 */
+
+/* on boarding page */
+
+.onboarding form {
+    display: flex;
+    justify-content: center;
+}
+
+.onboarding form section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 35%;
+}
+
+.onboarding form input {
+    padding: 15px 30px;
+    margin: 10px 0;
+    font-size: 15px;
+    border: solid 2px rgb(219,219,219);
+    border-radius: 10px;
+
+}
+
+
+.onboarding form .multiple-input-container {
+    display: flex;
+    flex-direction: row;
+}
+
+/* any input that lives inside of this container */
+.onboarding form .multiple-input-container input {
+    margin-right: 10px;
+}
+.onboarding form .multiple-input-container label {
+    padding: 10px;
+    border: solid 2px rgb(144,144,444);
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin-right: 10px;
+}
+
+.onboarding form .multiple-input-container input[type="radio"]{
+    display: none;
+}
