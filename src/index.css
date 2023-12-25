@@ -131,6 +131,7 @@ nav .nav-button:disabled
 
 /* on boarding page */
 
+
 .onboarding form {
     display: flex;
     justify-content: center;
@@ -195,3 +196,6 @@ nav .nav-button:disabled
     width: 10%;
 }
 
+.onboarding form .photo-container {
+    width: 100%;
+}
