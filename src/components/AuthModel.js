@@ -1,12 +1,11 @@
 import {useState} from 'react'
 
-const AuthModel = ({setShowModal}) => {
+const AuthModel = ({setShowModal, isSignUp}) => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
 
-    const isSignUp = true
 
     const handleClick = () =>
     {
@@ -51,14 +50,14 @@ const AuthModel = ({setShowModal}) => {
                     required={true}
                     onChange={(e) => setPassword(e.target)}
                 />
-                <input
+                {isSignUp && <input /* if creating an account show this*/
                     type="password"
                     id="password-check"
                     name="password-check"
                     placeholder="Confirm Password"
                     required={true}
                     onChange={(e) => setConfirmPassword(e.target)}
-                />
+                />}
                 <input className="secondaryButton" type="submit"/>
                 <p>{error}</p>
             </form>
