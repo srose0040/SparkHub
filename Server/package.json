@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srose0040/SparkHub.git"
+  },
+  "author": "Saje Antoine Rose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srose0040/SparkHub/issues"
+  },
+  "homepage": "https://github.com/srose0040/SparkHub#readme"
+}
