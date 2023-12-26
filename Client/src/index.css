@@ -104,7 +104,7 @@ nav .nav-button
     border: solid 2px rgb(48, 48, 48);
 }
 
-nav .nav-button:disabled
+.nav .nav-button:disabled
 {
     color: #340530;
     background-color: #d0d0d0;
