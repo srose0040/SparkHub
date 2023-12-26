@@ -30,7 +30,7 @@ const AuthModel = ({setShowModal, isSignUp}) => {
 
     return (
         <div className="auth-modal">
-            <div className="close-icon" onClick={handleClick}>X</div>
+            <div className="close-icon" onClick={handleClick}>✖</div>
             <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
             <p>By clicking Log In, you agree with our terms of use.</p>
             <form onSubmit={handleSubmit}>

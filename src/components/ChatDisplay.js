@@ -1,8 +1,9 @@
 const ChatDisplay = () => {
     return (
-        <div className="">Chat Display
-
-        </div>
+        <>
+        <Chat/>
+        <ChatInput/>
+        </>
     )
 }
 
