@@ -18,10 +18,12 @@ app.get('/', (req, res) => {
     res.json('hello to my app')
 })
 
+/* for users who wish to sign up */
 /* frontend will send info to this and this sends info to database */
 app.post('/signup', async(req, res) => {
     const client = new MongoClient(uri)
     const {email, password} = req.body
+    const sanitizedEmail = email.toLowerCase()
 
     const generatedUserId = uuidv4()
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -32,14 +34,12 @@ app.post('/signup', async(req, res) => {
         const users = database.collection('users')
 
         /* checking for existing users */
-        const existingUser = await users.findOne({email})
+        const existingUser = await users.findOne({email: sanitizedEmail})
 
         if (existingUser) {
             return res.status(409).send('User already exists. Please login')
         }
         /* if user is unique */
-
-       const sanitizedEmail = email.toLowerCase()
 
        const data = {
            user_id: generatedUserId,
@@ -63,6 +63,47 @@ app.post('/signup', async(req, res) => {
         console.log(e)
     }
 })
+
+/* for users who wish to log in */
+app.post('/login', async (req,res) => {
+    const client = new MongoClient(uri)
+    const {email, password} = req.body
+    const sanitizedEmail = email.toLowerCase()
+
+    try {
+        /* asyncronously connect to DB */
+        await client.connect()
+        /* Save the requested database in a var */
+        const database = client.db('app-data')
+        /* save users field of db in a var */
+        const users = database.collection('users')
+
+        /* query database for user */
+        const user = await users.findOne({email: sanitizedEmail})
+        /* checks to see if password correct */
+        const correctPassword = await bcrypt.compare(password, user.hashed_password)
+
+        if (user && correctPassword) {
+            const token = jwt.sign(user, email, {
+                expiresIn: 60 * 24
+            })
+            res.status(201).json({token,
+                userId: user.user_Id, email})
+        }
+        else {
+            res.status(400).send('Invalid Credentials')
+        }
+
+    }
+    catch (e) {
+        console.log(e)
+    }
+    finally {
+        await client.close(); /* Close the MongoDB connection */
+    }
+
+})
+
 
 app.get('/users', async (req, res) => {
     const client = new MongoClient(uri)

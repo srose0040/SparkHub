@@ -27,8 +27,9 @@ const AuthModel = ({setShowModal, isSignUp}) => {
                 return
             }
             /* get out if there is error else post to backend */
+            /* if they are tryna sign up, post to link ending with signup else login */
            const response = await axios.post(
-               'http://localhost:8000/signup', {email, password})
+               `http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, {email, password})
 
             setCookie('Email', response.data.email)
             setCookie('UserId', response.data.userId)
@@ -39,7 +40,8 @@ const AuthModel = ({setShowModal, isSignUp}) => {
             const success = response.status === 201
 
             /* redirect to next page in program flow */
-            if (success) navigate('/onboarding')
+            if (success && isSignUp) navigate('/onboarding')
+            if (success && !isSignUp) navigate('/dashboard')
 
         }
         catch (error) {
