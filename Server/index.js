@@ -5,6 +5,7 @@ const uri = 'mongodb+srv://srose0040:nmKWf7jOLfvnqKyv@cluster0.xhcg19f.mongodb.n
 
 const app = express() /* we can now use express methods ass "app" */
 
+
 /* routing -- if we visit port 8000 call this function */
 app.get('/', (req, res) => {
     res.json('hello to my app')
@@ -12,7 +13,8 @@ app.get('/', (req, res) => {
 
 /* if we visit this resource send info to database */
 app.post('/signup', (req, res) => {
-    res.json('hello to my app')
+    const client = new MongoClient(uri)
+
 })
 
 app.get('/users', async (req, res) => {

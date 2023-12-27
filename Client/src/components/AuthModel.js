@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import axios from 'axios'
 
 const AuthModel = ({setShowModal, isSignUp}) => {
     const [email, setEmail] = useState(null)
