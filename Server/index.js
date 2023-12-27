@@ -142,6 +142,32 @@ app.put('/user', async (req, res) => {
 })
 
 
+app.get('/user', async (req, res) => {
+    const client = new MongoClient(uri)
+    const userId = req.query.userId
+
+    try {
+        /* asyncronously connect to DB */
+        await client.connect()
+        /* Save the requested database in a var */
+        const database = client.db('app-data')
+        /* save users field of db in a var */
+        const users = database.collection('users')
+
+        /* query for user by their ID */
+        const query = {user_id: userId}
+        const user = await users.findOne(query)
+        res.send(user)
+
+    }
+    finally {
+        await client.close()
+    }
+
+
+})
+
+
 app.get('/users', async (req, res) => {
     const client = new MongoClient(uri)
 
