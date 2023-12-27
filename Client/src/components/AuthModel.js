@@ -1,12 +1,14 @@
 import {useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from "react-router-dom";
+import {useCookies} from 'react-cookie'
 
 const AuthModel = ({setShowModal, isSignUp}) => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
     let navigate = useNavigate()
 
@@ -27,6 +29,10 @@ const AuthModel = ({setShowModal, isSignUp}) => {
             /* get out if there is error else post to backend */
            const response = await axios.post(
                'http://localhost:8000/signup', {email, password})
+
+            setCookie('Email', response.data.email)
+            setCookie('UserId', response.data.userId)
+            setCookie('AuthToken', response.data.token)
 
             /* if the response status is 201 it will be stored in var success */
 
