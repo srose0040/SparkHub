@@ -2,8 +2,10 @@ const PORT = 8000
 const express = require('express')
 const {MongoClient} = require('mongodb')
 const uri = 'mongodb+srv://srose0040:nmKWf7jOLfvnqKyv@cluster0.xhcg19f.mongodb.net/?retryWrites=true&w=majority'
-
-const app = express() /* we can now use express methods ass "app" */
+const {v4: uuidv4} = require('uuid')
+const jwt = require('jsonwebtoken')
+const {uuidV4} = require("mongodb/src/utils"); /* might not be wanted */
+const app = express() /* we can now use express methods as "app" */
 
 
 /* routing -- if we visit port 8000 call this function */
@@ -11,10 +13,50 @@ app.get('/', (req, res) => {
     res.json('hello to my app')
 })
 
-/* if we visit this resource send info to database */
-app.post('/signup', (req, res) => {
+/* frontend will send info to this and this sends info to database */
+app.post('/signup', async(req, res) => {
     const client = new MongoClient(uri)
+    const {email, password} = req.body
 
+    const generatedUserId = uuidv4()
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    try{
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        /* checking for existing users */
+        const existingUser = users.findOne({email})
+
+        if (existingUser) {
+            return res.status(409).send('User already exists. Please login')
+        }
+        /* if user is unique */
+
+       const sanitizedEmail = email.toLowerCase()
+
+       const data = {
+           user_id: generatedUserId,
+           email: sanitizedEmail,
+           hashed_password: hashedPassword
+        }
+        const insertedUser = await users.insertOne(data)
+
+        /* generating token for user which expires in 24 hrs*/
+        const token = jwt.sign(insertedUser, sanitizedEmail, {
+            expiresIn: 60 * 24,
+        })
+
+        res.status(201).json({
+            token,
+            userId: generatedUserId,
+            email: sanitizedEmail})
+        
+    }
+    catch (e) {
+        console.log(e)
+    }
 })
 
 app.get('/users', async (req, res) => {
