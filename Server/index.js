@@ -4,8 +4,13 @@ const {MongoClient} = require('mongodb')
 const uri = 'mongodb+srv://srose0040:nmKWf7jOLfvnqKyv@cluster0.xhcg19f.mongodb.net/?retryWrites=true&w=majority'
 const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
-const {uuidV4} = require("mongodb/src/utils"); /* might not be wanted */
+const cors = require('cors')
+const bcrypt = require("bcrypt");
+/* const {uuidV4} = require("mongodb/src/utils"); might not be wanted */
+
 const app = express() /* we can now use express methods as "app" */
+app.use(cors())
+app.use(express.json())
 
 
 /* routing -- if we visit port 8000 call this function */
@@ -27,7 +32,7 @@ app.post('/signup', async(req, res) => {
         const users = database.collection('users')
 
         /* checking for existing users */
-        const existingUser = users.findOne({email})
+        const existingUser = await users.findOne({email})
 
         if (existingUser) {
             return res.status(409).send('User already exists. Please login')
