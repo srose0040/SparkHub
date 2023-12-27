@@ -8,6 +8,7 @@ const Dashboard = () => {
     const [user, setUser] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
+
     /* getting user id from cookie */
     const userId = cookies.UserId
     const getUser = async () => {
@@ -25,7 +26,8 @@ const Dashboard = () => {
     /* anytime the user changes we do this */
     useEffect(() => {
         getUser()
-    })
+    }, [])
+
     console.log('user', user)
 
 

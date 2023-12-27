@@ -9,13 +9,15 @@ const ChatHeader = ({user}) => {
         window.location.reload()
     }
 
+
+
     return (
         <div className="chat-container-header">
             <div className="profile">
                 <div className="img-container">
-                    <img alt={"photo of " + user.first_name}/>
+
                 </div>
-                <h3>{user.first_name}</h3>
+                <h3></h3>
             </div>
             <i className="log-out-icon" onClick={logout}>↩</i>
         </div>
