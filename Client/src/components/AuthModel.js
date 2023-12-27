@@ -55,7 +55,7 @@ const AuthModel = ({setShowModal, isSignUp}) => {
                     name="email"
                     placeholder="email"
                     required={true}
-                    onChange={(e) => setEmail(e.target)}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
@@ -63,7 +63,7 @@ const AuthModel = ({setShowModal, isSignUp}) => {
                     name="password"
                     placeholder="password"
                     required={true}
-                    onChange={(e) => setPassword(e.target)}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 {isSignUp && <input /* if creating an account show this*/
                     type="password"
@@ -71,7 +71,7 @@ const AuthModel = ({setShowModal, isSignUp}) => {
                     name="password-check"
                     placeholder="Confirm Password"
                     required={true}
-                    onChange={(e) => setConfirmPassword(e.target)}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                 />}
                 <input className="secondaryButton" type="submit"/>
                 <p>{error}</p>
