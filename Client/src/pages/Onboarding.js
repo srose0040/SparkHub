@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import Nav from "../components/Nav";
 import {useCookies} from 'react-cookie'
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Onboarding = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
@@ -18,8 +20,18 @@ const Onboarding = () => {
         matches: []
     })
 
-    const handleSubmit = () => {
-        console.log('submitted')
+    let navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.put('http://localhost:8000/user', {formData})
+            const success = response.status === 200
+            if (success) navigate('/dashboard')
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     const handleChange = (e) => {
