@@ -53,14 +53,14 @@ app.post('/signup', async(req, res) => {
             expiresIn: 60 * 24,
         })
 
-        res.status(201).json({
-            token,
-            userId: generatedUserId,
-            email: sanitizedEmail})
+        res.status(201).json({token, userId: generatedUserId})
         
     }
     catch (e) {
         console.log(e)
+    }
+    finally {
+        await client.close()
     }
 })
 
@@ -87,8 +87,7 @@ app.post('/login', async (req,res) => {
             const token = jwt.sign(user, email, {
                 expiresIn: 60 * 24
             })
-            res.status(201).json({token,
-                userId: user.user_Id, email})
+            res.status(201).json({token, userId: user.userId})
         }
         else {
             res.status(400).send('Invalid Credentials')
@@ -101,7 +100,45 @@ app.post('/login', async (req,res) => {
     finally {
         await client.close(); /* Close the MongoDB connection */
     }
+})
 
+/* for the onboarding page where the user inputs their interests and info */
+
+app.put('/user', async (req, res) => {
+    const client = new MongoClient(uri)
+    const formData = req.body.formData
+
+    try {
+        /* asyncronously connect to DB */
+        await client.connect()
+        /* Save the requested database in a var */
+        const database = client.db('app-data')
+        /* save users field of db in a var */
+        const users = database.collection('users')
+
+        /* query for user by their ID */
+        const query = {user_id: formData.user_id}
+        /* update user database info */
+        const updateDocument = {
+            $set: {
+                first_name: formData.first_name,
+                dob_day: formData.dob_day,
+                dob_month: formData.dob_month,
+                dob_year: formData.dob_year,
+                show_gender: formData.show_gender,
+                gender_identity: formData.gender_identity,
+                gender_interest: formData.gender_interest,
+                url: formData.url,
+                about: formData.about,
+                matches: formData.matches
+            }
+        }
+        const insertedUser = await users.updateOne(query, updateDocument)
+        res.send(insertedUser)
+    }
+    finally {
+        await client.close()
+    }
 })
 
 

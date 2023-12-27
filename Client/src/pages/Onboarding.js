@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import Nav from "../components/Nav";
+import {useCookies} from 'react-cookie'
 
 const Onboarding = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const [formData, setFormData] = useState({
-        user_id: "",
+        user_id: cookies.UserId,
         first_name: "",
         dob_day: "",
         dob_month: "",
@@ -11,7 +13,6 @@ const Onboarding = () => {
         show_gender: false,
         gender_identity: "man",
         gender_interest: "woman",
-        email: "",
         url: "",
         about: "",
         matches: []
@@ -23,7 +24,7 @@ const Onboarding = () => {
 
     const handleChange = (e) => {
         console.log('e', e)
-        /* if it is a check box we want to know if it is checked or not else get value */
+        /* if it is a checkbox we want to know if it is checked or not else get value */
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
         const name = e.target.name
         /* getting previous state */
@@ -175,7 +176,7 @@ const Onboarding = () => {
                             required={true}
                         />
                         <div className="photo-container">
-                            <img src={formData.url} alt="profile pic preview"/>
+                            {formData.url && <img src={formData.url} alt="profile pic preview"/>}
                         </div>
 
 
