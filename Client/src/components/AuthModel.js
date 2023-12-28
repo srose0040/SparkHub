@@ -34,6 +34,7 @@ const AuthModel = ({setShowModal, isSignUp}) => {
             setCookie('UserId', response.data.userId)
             setCookie('AuthToken', response.data.token)
 
+
             /* if the response status is 201 it will be stored in var success */
 
             const success = response.status === 201

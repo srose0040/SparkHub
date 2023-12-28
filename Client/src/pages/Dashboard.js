@@ -6,6 +6,7 @@ import axios from "axios";
 
 const Dashboard = () => {
     const [user, setUser] = useState(null)
+    const [lastDirection, setLastDirection] = useState()
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
 
@@ -28,7 +29,7 @@ const Dashboard = () => {
         getUser()
     }, [])
 
-    console.log('user', user)
+
 
 
 
@@ -56,7 +57,7 @@ const Dashboard = () => {
     ]
 
 
-    const [lastDirection, setLastDirection] = useState()
+
 
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete)
