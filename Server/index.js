@@ -182,7 +182,7 @@ app.get('/gendered-users', async (req, res) => {
         const database = client.db('app-data')
         /* save users field of db in a var */
         const users = database.collection('users')
-        const query = {gender_identity: {$eq: 'gender'}}
+        const query = {gender_identity: gender}
         const foundUsers = await users.find(query).toArray()
 
         res.send(foundUsers)
