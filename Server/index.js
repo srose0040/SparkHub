@@ -253,8 +253,9 @@ app.get('/users', async (req, res) => {
 
 // Get Messages by from_userId and to_userId
 app.get('/messages', async (req, res) => {
-    const {userId, correspondingUserId} = req.query
     const client = new MongoClient(uri)
+    const {userId, correspondingUserId} = req.query
+    console.log('msg1stlog', userId, correspondingUserId)
 
     try {
         await client.connect()
@@ -265,6 +266,7 @@ app.get('/messages', async (req, res) => {
             from_userId: userId, to_userId: correspondingUserId
         }
         const foundMessages = await messages.find(query).toArray()
+        console.log('fndmsgs', foundMessages)
         res.send(foundMessages)
     } finally {
         await client.close()
