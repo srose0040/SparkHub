@@ -192,4 +192,30 @@ app.get('/gendered-users', async (req, res) => {
     }
 })
 
+/* adds a match by looking for user signed in then update
+matches array by the matched user id
+ */
+app.put('/addmatch', async(req,res) => {
+    const client = new MongoClient(uri)
+    const {userId, matchedUserId} = req.body
+
+    try {
+        /* asyncronously connect to DB */
+        await client.connect()
+        /* Save the requested database in a var */
+        const database = client.db('app-data')
+        /* save users field of db in a var */
+        const users = database.collection('users')
+        const query = {user_id: userId}
+        const updateDocument = {
+            $push: {matches: {user_id: matchedUserId}},
+        }
+        const user = await users.updateOne(query, updateDocument)
+        res.send(user)
+    }
+    finally {
+        await client.close()
+    }
+})
+
 app.listen(PORT, () => console.log('Server running on PORT' + PORT))
