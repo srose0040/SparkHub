@@ -168,8 +168,12 @@ app.get('/user', async (req, res) => {
 })
 
 
-app.get('/users', async (req, res) => {
+app.get('/gendered-users', async (req, res) => {
     const client = new MongoClient(uri)
+    const gender = req.query.gender
+    console.log('interest',gender)
+
+
 
     try {
         /* asyncronously connect to DB */
@@ -178,9 +182,10 @@ app.get('/users', async (req, res) => {
         const database = client.db('app-data')
         /* save users field of db in a var */
         const users = database.collection('users')
+        const query = {gender_identity: {$eq: 'gender'}}
+        const foundUsers = await users.find(query).toArray()
 
-        const returnedUsers = await users.find().toArray()
-        res.send(returnedUsers)
+        res.send(foundUsers)
     }
     finally {
         await client.close()
