@@ -70,8 +70,9 @@ const Dashboard = () => {
     }
 
     return (
+        <>{user &&
         <div className="dashboard">
-            <ChatContainer user={!user ? getUser() : user}/>
+            <ChatContainer user={user}/>
             <div className="swipe-container">
                 <div className="card-container">
                     {characters.map((character) =>
@@ -92,7 +93,8 @@ const Dashboard = () => {
                     {/* if last direction exists tell the user */}
                 </div>
             </div>
-        </div>
+        </div>}
+        </>
     )
 }
 export default Dashboard
