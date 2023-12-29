@@ -71,7 +71,7 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <ChatContainer user={user}/>
+            <ChatContainer user={!user ? getUser() : user}/>
             <div className="swipe-container">
                 <div className="card-container">
                     {characters.map((character) =>
