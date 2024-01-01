@@ -173,23 +173,42 @@ app.get('/gendered-users', async (req, res) => {
     const gender = req.query.gender
     console.log('interest',gender)
 
+    if (gender === 'everyone')
+    {
+        try {
+            await client.connect()
+            /* Save the requested database in a var */
+            const database = client.db('app-data')
+            /* save users field of db in a var */
+            const users = database.collection('users')
+            const returnedUsers = await users.find().toArray()
+            console.log('returnedUsers',returnedUsers)
+            res.send(returnedUsers)
 
-
-    try {
-        /* asyncronously connect to DB */
-        await client.connect()
-        /* Save the requested database in a var */
-        const database = client.db('app-data')
-        /* save users field of db in a var */
-        const users = database.collection('users')
-        const query = {gender_identity: gender}
-        const foundUsers = await users.find(query).toArray()
-
-        res.send(foundUsers)
+        }
+        finally {
+            await client.close()
+        }
     }
-    finally {
-        await client.close()
+    else {
+        try {
+            /* asyncronously connect to DB */
+            await client.connect()
+            /* Save the requested database in a var */
+            const database = client.db('app-data')
+            /* save users field of db in a var */
+            const users = database.collection('users')
+            const query = {gender_identity: gender}
+            const foundUsers = await users.find(query).toArray()
+            console.log('foundUsers',foundUsers)
+
+            res.send(foundUsers)
+        }
+        finally {
+            await client.close()
+        }
     }
+
 })
 
 /* adds a match by looking for user signed in then update
