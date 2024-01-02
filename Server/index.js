@@ -1,12 +1,12 @@
 const PORT = 8000
 const express = require('express')
 const {MongoClient} = require('mongodb')
-const uri = 'mongodb+srv://srose0040:nmKWf7jOLfvnqKyv@cluster0.xhcg19f.mongodb.net/?retryWrites=true&w=majority'
 const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require("bcrypt");
-/* const {uuidV4} = require("mongodb/src/utils"); might not be wanted */
+require('dotenv').config()
+const uri = process.env.URI
 
 const app = express() /* we can now use express methods as "app" */
 app.use(cors())
