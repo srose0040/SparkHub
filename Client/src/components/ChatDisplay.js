@@ -2,12 +2,15 @@ import Chat from "./Chat";
 import ChatInput from "./ChatInput";
 import axios from "axios";
 import {useEffect, useState} from "react";
+
+// ChatDisplay component for displaying and managing chat messages
 const ChatDisplay = ({user, clickedUser}) => {
     const userId = user?.user_id
     const clickedUserId = clickedUser?.user_id
     const [usersMessages, setUsersMessages] = useState(null)
     const [clickedUsersMessages, setClickedUsersMessages] = useState(null)
 
+    // Fetch messages between the user and clicked user
     const getUsersMessages = async () => {
 
         try {
@@ -36,7 +39,7 @@ const ChatDisplay = ({user, clickedUser}) => {
 
     }
 
-
+    // useEffect to fetch messages on component mount and when user or clicked user changes
     useEffect(() => {
         getUsersMessages()
         getClickedUsersMessages()
@@ -44,6 +47,7 @@ const ChatDisplay = ({user, clickedUser}) => {
 
     const messages = []
 
+    // Format user's messages
     usersMessages?.forEach(message => {
         const formattedMessage = {}
         formattedMessage['name'] = user?.first_name
@@ -63,8 +67,6 @@ const ChatDisplay = ({user, clickedUser}) => {
     })
 
     const descendingOrderMessages = messages?.sort((a,b) => a.timestamp.localeCompare(b.timestamp))
-
-
 
 
     return (

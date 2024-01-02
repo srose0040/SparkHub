@@ -33,6 +33,7 @@ const Onboarding = () => {
         }
     }
 
+    // Handle form input changes
     const handleChange = (e) => {
         /* if it is a checkbox we want to know if it is checked or not else get value */
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value

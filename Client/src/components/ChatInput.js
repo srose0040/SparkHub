@@ -7,6 +7,7 @@ const ChatInput = ({user, clickedUser, getUserMessages, getClickedUsersMessages}
     const clickedUserId = clickedUser?.user_id
 
     const addMessage = async () => {
+        // Create a new message object with timestamp, sender, receiver, and message content
         const message = {
             timestamp: new Date().toISOString(),
             from_userId: userId,
@@ -16,8 +17,10 @@ const ChatInput = ({user, clickedUser, getUserMessages, getClickedUsersMessages}
 
         try {
             await axios.post('http://localhost:8000/message', { message })
+            // Refresh the user and clicked user messages
             getUserMessages()
             getClickedUsersMessages()
+            // Clear the input text area after sending the message
             setTextArea("")
         } catch (error) {
             console.log(error)

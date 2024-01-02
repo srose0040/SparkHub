@@ -3,6 +3,7 @@ import axios from 'axios'
 import {useNavigate} from "react-router-dom";
 import {useCookies} from 'react-cookie'
 
+// AuthModel component for handling user authentication
 const AuthModel = ({setShowModal, isSignUp}) => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
@@ -12,15 +13,17 @@ const AuthModel = ({setShowModal, isSignUp}) => {
 
     let navigate = useNavigate()
 
-
+    // Close the authentication modal
     const handleClick = () =>
     {
         setShowModal(false)
     }
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault() /* prevent page from refreshing */
         try {
+            // Check if passwords match for sign-up
             if (isSignUp && (password !== confirmPassword))
             {
                 setError('Passwords need to match!')

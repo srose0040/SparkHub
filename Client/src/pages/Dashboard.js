@@ -13,6 +13,8 @@ const Dashboard = () => {
 
     /* getting user id from cookie */
     const userId = cookies.UserId
+
+    // Fetch user data from the server
     const getUser = async () => {
         try {
             const response = await axios.get('http://localhost:8000/user', {
@@ -25,6 +27,7 @@ const Dashboard = () => {
         }
     }
 
+    // Fetch gendered users based on user's gender interest
     const getGenderedUsers = async () => {
         try {
             const response = await axios.get('http://localhost:8000/gendered-users', {
@@ -37,12 +40,13 @@ const Dashboard = () => {
         }
     }
 
-    /* anytime the user changes we do this */
+    // useEffect to fetch user data on component mount
     useEffect(() => {
         getUser()
 
     }, [])
 
+    // useEffect to fetch gendered users when user data changes
     useEffect(() => {
         if (user) {
             getGenderedUsers()
@@ -62,9 +66,7 @@ const Dashboard = () => {
         }
     }
 
-
-
-
+    // Callback for swipe action
     const swiped = (direction, swipedUserId) => {
         if (direction === 'right') {
             updateMatches(swipedUserId)
@@ -73,13 +75,15 @@ const Dashboard = () => {
     }
 /* everything above saves or sets the directions that we went last when swiping */
 
+    // Callback when a card goes out of the swipe container
     const outOfFrame = (name) => {
         console.log(name + ' left the screen!')
     }
 
+    // Extract matched user ids from the user's matches
     const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
 
-    /* if the user is not included in the match list return them */
+    // Filter gendered users based on matches
     const filteredGenderedUsers = genderedUsers?.filter(
         genderedUser => !matchedUserIds.includes(genderedUser.user_id)
     )

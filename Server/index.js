@@ -103,7 +103,6 @@ app.post('/login', async (req,res) => {
 })
 
 /* for the onboarding page where the user inputs their interests and info */
-
 app.put('/user', async (req, res) => {
     const client = new MongoClient(uri)
     const formData = req.body.formData
@@ -140,7 +139,7 @@ app.put('/user', async (req, res) => {
     }
 })
 
-
+// Endpoint to get user information by user ID
 app.get('/user', async (req, res) => {
     const client = new MongoClient(uri)
     const userId = req.query.userId
@@ -166,7 +165,7 @@ app.get('/user', async (req, res) => {
 
 })
 
-
+// Endpoint to get gendered users based on gender preference
 app.get('/gendered-users', async (req, res) => {
     const client = new MongoClient(uri)
     const gender = req.query.gender

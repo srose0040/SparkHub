@@ -10,6 +10,7 @@ const MatchesDisplay = ({matches, setClickedUser}) => {
     const matchedUserIds = matches.map(({user_id}) => user_id)
     const userId = cookies.UserId;
 
+    // Fetch matched profiles from the server
     const getMatches = async () => {
         try {
            const response = await axios.get('http://localhost:8000/users', {
@@ -22,10 +23,12 @@ const MatchesDisplay = ({matches, setClickedUser}) => {
         }
     }
 
+    // useEffect to fetch matches when the matches prop changes
     useEffect(() => {
         getMatches()
     }, [matches])
 
+    // Filter matched profiles based on user ID
     const filteredMatchedProfiles = matchedProfiles?.filter(
         (matchedProfile) =>
             matchedProfile.matches.filter((profile) => profile.user_id === userId)
