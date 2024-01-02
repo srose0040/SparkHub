@@ -1,15 +1,22 @@
 import Nav from '../components/Nav'
 import {useState}  from "react";
 import AuthModel from "../components/AuthModel";
+import {useCookies} from 'react-cookie'
 
 const Home = () => {
     const [showModal, setShowModal] = useState(false)
     const [isSignUp, setIsSignUp] = useState(true) /* assuming everyone in our website has not signed up yet */
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
-    const authToken = false
+    const authToken = cookies.AuthToken
 
     const handleClick = () => {
-        console.log('clicked')
+        if (authToken) {
+            removeCookie('UserId', cookies.UserId)
+            removeCookie('AuthToken', cookies.AuthToken)
+            window.location.reload()
+            return
+        }
         setShowModal(true)
         setIsSignUp(true)
     }
@@ -17,6 +24,7 @@ const Home = () => {
     return (
         <div className="overlay">
         <Nav minimal={false}
+             authToken={authToken}
              setShowModal={setShowModal}
              showModal={showModal}
              setIsSignUp={setIsSignUp}/>

@@ -171,7 +171,6 @@ app.get('/user', async (req, res) => {
 app.get('/gendered-users', async (req, res) => {
     const client = new MongoClient(uri)
     const gender = req.query.gender
-    console.log('interest',gender)
 
     if (gender === 'everyone')
     {
@@ -182,7 +181,6 @@ app.get('/gendered-users', async (req, res) => {
             /* save users field of db in a var */
             const users = database.collection('users')
             const returnedUsers = await users.find().toArray()
-            console.log('returnedUsers',returnedUsers)
             res.send(returnedUsers)
 
         }
@@ -200,8 +198,6 @@ app.get('/gendered-users', async (req, res) => {
             const users = database.collection('users')
             const query = {gender_identity: gender}
             const foundUsers = await users.find(query).toArray()
-            console.log('foundUsers',foundUsers)
-
             res.send(foundUsers)
         }
         finally {
@@ -240,7 +236,7 @@ app.put('/addmatch', async(req,res) => {
 app.get('/users', async (req, res) => {
     const client = new MongoClient(uri)
     const userIds = JSON.parse(req.query.userIds)
-    console.log(userIds)
+
 
     try{
         /* asyncronously connect to DB */
@@ -286,6 +282,23 @@ app.get('/messages', async (req, res) => {
         }
         const foundMessages = await messages.find(query).toArray()
         res.send(foundMessages)
+    } finally {
+        await client.close()
+    }
+})
+
+// Add a Message to our Database
+app.post('/message', async (req, res) => {
+    const client = new MongoClient(uri)
+    const message = req.body.message
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const messages = database.collection('messages')
+
+        const insertedMessage = await messages.insertOne(message)
+        res.send(insertedMessage)
     } finally {
         await client.close()
     }
