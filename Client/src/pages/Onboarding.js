@@ -12,7 +12,6 @@ const Onboarding = () => {
         dob_day: "",
         dob_month: "",
         dob_year: "",
-        show_gender: false,
         gender_identity: "man",
         gender_interest: "woman",
         url: "",
@@ -119,14 +118,6 @@ const Onboarding = () => {
                             />
                             <label htmlFor="nonbinary-gender-identity">Nonbinary</label>
                         </div>
-
-                        <label htmlFor="show-gender">Show gender on my profile</label>
-                        <input id="show-gender"
-                               type="checkbox"
-                               name="show_gender"
-                               onChange={handleChange}
-                               checked={formData.show_gender} /* makes it return true */
-                        />
                         <label>I am interested in</label>
                         <div className="multiple-input-container">
                             <input id="man-gender-interest"
