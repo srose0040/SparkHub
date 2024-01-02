@@ -3,55 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 40px;
-        }
-
-        h1 {
-            color: #0366d6;
-            border-bottom: 2px solid #e1e4e8;
-            padding-bottom: 8px;
-        }
-
-        h2 {
-            color: #0366d6;
-        }
-
-        a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        code {
-            background-color: #f3f4f6;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-
-        pre {
-            background-color: #f3f4f6;
-            padding: 10px;
-            border-radius: 6px;
-            overflow-x: auto;
-        }
-    </style>
     <title>SparkHub - Your Ultimate Dating Platform</title>
 </head>
 <body>
